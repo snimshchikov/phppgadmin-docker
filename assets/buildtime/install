@@ -4,7 +4,7 @@ set -eux
 BUILD_PACKAGES_DEPENDENCIES=curl
 apk add --no-cache ${BUILD_PACKAGES_DEPENDENCIES}
 
-curl -SLO https://github.com/phppgadmin/phppgadmin/archive/master.zip
+curl -SLO https://github.com/phppgadmin2/phppgadmin/archive/master.zip
 unzip master.zip
 mv ./phppgadmin-master/* ${DOCKAGE_WEBROOT_DIR}
 mv ${DOCKAGE_WEBROOT_DIR}/conf/config.inc.php-dist ${DOCKAGE_WEBROOT_DIR}/conf/config.inc.php
