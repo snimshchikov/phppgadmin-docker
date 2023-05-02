@@ -6,7 +6,7 @@ LABEL maintainer="Snimshchikov Ilya <snimshchikov.ilya@gmail.com>" \
     org.label-schema.vcs-url="https://github.com/snimshchikov/phppgadmin-docker" \
     org.label-schema.license="MIT"
 
-ENV WEBROOT_DIR=/var/www \
+ENV WEBROOT_DIR=/var/www/html/ \
     DATA_DIR=/data \
     LOG_DIR=/var/log \
     ASSETS_DIR=/etc/assets
