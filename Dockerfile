@@ -33,8 +33,7 @@ RUN apk update \
     && runit-enable-service nginx \
     && runit-enable-service php-fpm \
     && chown nginx:nginx ${DOCKAGE_WEBROOT_DIR} \
-    && mv ${DOCKAGE_ETC_DIR}/sbin/* /sbin \
-    && rm -rf /var/cache/apk/* ${DOCKAGE_ETC_DIR}/sbin ${DOCKAGE_WEBROOT_DIR}/* \
+    && rm -rf /var/cache/apk/* ${DOCKAGE_WEBROOT_DIR}/* \
     && ln -s /usr/bin/php-fpm81 /usr/bin/php-fpm
     
 EXPOSE 80/tcp 443/tcp
