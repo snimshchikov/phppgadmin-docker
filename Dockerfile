@@ -8,7 +8,7 @@ LABEL maintainer="Snimshchikov Ilya <snimshchikov.ilya@gmail.com>" \
 
 ENV WEBROOT_DIR=/var/www \
     DATA_DIR=/data \
-    LOG_DIR=/var/log
+    LOG_DIR=/var/log \
     ASSETS_DIR=/etc/assets
 ADD ./assets ${ASSETS_DIR}
 
