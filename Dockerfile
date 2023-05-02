@@ -29,13 +29,13 @@ ENV DOCKAGE_WEBROOT_DIR=/var/www \
 ADD ./assets ${DOCKAGE_ETC_DIR}
 
 RUN apk update \
-    && apk --no-cache add nginx php8.1-fpm \
+    && apk --no-cache add nginx php81-fpm \
     && runit-enable-service nginx \
     && runit-enable-service php-fpm \
     && chown nginx:nginx ${DOCKAGE_WEBROOT_DIR} \
     && mv ${DOCKAGE_ETC_DIR}/sbin/* /sbin \
     && rm -rf /var/cache/apk/* ${DOCKAGE_ETC_DIR}/sbin ${DOCKAGE_WEBROOT_DIR}/* \
-    && ln -s /usr/bin/php-fpm8.1 /usr/bin/php-fpm
+    && ln -s /usr/bin/php-fpm81 /usr/bin/php-fpm
     
 EXPOSE 80/tcp 443/tcp
 VOLUME ["$DOCKAGE_DATA_DIR", "$DOCKAGE_LOG_DIR"]
