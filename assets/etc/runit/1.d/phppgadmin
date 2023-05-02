@@ -42,7 +42,7 @@ cat ${ASSETS_DIR}/runtime/configs/phppgadmin/config.inc.php | \
         -e "s#{{PPA_SERVER_DEFAULT_DB}}#$PPA_SERVER_DEFAULT_DB#g" \
         -e "s#{{PPA_SERVER_PG_DUMP_PATH}}#$PPA_SERVER_PG_DUMP_PATH#g" \
         -e "s#{{PPA_SERVER_PG_DUMPALL_PATH}}#$PPA_SERVER_PG_DUMPALL_PATH#g" \
-        "s#{{PPA_SERVER_DESCS}}#$PPA_SERVER_DESCS#g" \
+        -e "s#{{PPA_SERVER_DESCS}}#$PPA_SERVER_DESCS#g" \
         -e "s#{{PPA_SERVER_HOSTS}}#$PPA_SERVER_HOSTS#g" \
         -e "s#{{PPA_SERVER_PORTS}}#$PPA_SERVER_PORTS#g" \
         -e "s#{{PPA_SERVER_SSL_MODES}}#$PPA_SERVER_SSL_MODES#g" \
