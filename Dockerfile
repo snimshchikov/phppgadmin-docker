@@ -1,4 +1,4 @@
-FROM dockage/alpine-nginx-php-fpm:latest
+FROM boxedcode/alpine-nginx-php-fpm:v2.0.0
 
 LABEL maintainer="Snimshchikov Ilya <snimshchikov.ilya@gmail.com>" \
     org.label-schema.name="phppgadmin" \
