@@ -1,5 +1,10 @@
 FROM boxedcode/alpine-nginx-php-fpm:v2.0.0
 
+ENV DOCKAGE_WEBROOT_DIR=/var/www \
+    DOCKAGE_DATA_DIR=/data \
+    DOCKAGE_ETC_DIR=/etc/dockage \
+    DOCKAGE_LOG_DIR=/var/log
+    
 LABEL maintainer="Snimshchikov Ilya <snimshchikov.ilya@gmail.com>" \
     org.label-schema.name="phppgadmin" \
     org.label-schema.vendor="Dockage" \
