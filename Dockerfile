@@ -14,4 +14,4 @@ ADD ./assets ${ASSETS_DIR}
 
 RUN apk --no-cache --update add php-pgsql postgresql \
     && ${ASSETS_DIR}/buildtime/install \
-    && rm rf ${ASSETS_DIR}/buildtime
+    && rm -rf ${ASSETS_DIR}/buildtime
