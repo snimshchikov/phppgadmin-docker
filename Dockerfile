@@ -13,8 +13,5 @@ ENV WEBROOT_DIR=/var/www/html/ \
 ADD ./assets ${ASSETS_DIR}
 
 RUN apk --no-cache --update add php-pgsql postgresql \
-    && mv ${ASSETS_DIR}/php-fpm.conf /usr/local/etc/php-fpm.conf \
-    && mkdir /conf/ && mkdir /conf/nginx/ \
-    && mv ${ASSETS_DIR}/nginx/default.conf /conf/nginx/nginx-phppgadmin.conf \
     && ${ASSETS_DIR}/buildtime/install \
     && rm -rf ${ASSETS_DIR}/buildtime
