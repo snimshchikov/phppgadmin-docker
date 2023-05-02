@@ -18,8 +18,7 @@ RUN apk update \
     && chmod +x /opt/installer \
     && sync \
     && /opt/installer \
-    && rm -rf /var/cache/apk/* /opt/installer \
-    && /sbin/runit-init
+    && rm -rf /var/cache/apk/* /opt/installer
     
 ENV DOCKAGE_WEBROOT_DIR=/var/www \
     DOCKAGE_DATA_DIR=/data \
@@ -35,7 +34,7 @@ RUN apk update \
     && chown nginx:nginx ${DOCKAGE_WEBROOT_DIR} \
     && mv ${DOCKAGE_ETC_DIR}/sbin/* /sbin \
     && rm -rf /var/cache/apk/* ${DOCKAGE_ETC_DIR}/sbin ${DOCKAGE_WEBROOT_DIR}/* \
-    && ln -s /usr/bin/php-fpm5 /usr/bin/php-fpm
+    && ln -s /usr/bin/php-fpm8.1 /usr/bin/php-fpm
     
 EXPOSE 80/tcp 443/tcp
 VOLUME ["$DOCKAGE_DATA_DIR", "$DOCKAGE_LOG_DIR"]
