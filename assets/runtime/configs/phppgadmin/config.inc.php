@@ -32,7 +32,15 @@ $server_default_dbs = custom_explode('{{PPA_SERVER_DEFAULT_DBS}}');
 $server_pg_dump_paths = custom_explode('{{PPA_SERVER_PG_DUMP_PATHS}}');
 $server_pg_dumpall_paths = custom_explode('{{PPA_SERVER_PG_DUMPALL_PATHS}}');
 
-$server_num = max(len($server_descs), len($server_hosts), len($server_ports), len($server_ssl_modes), len($server_default_dbs), len($server_pg_dump_paths), len($server_pg_dumpall_paths));
+$server_num = max(
+  count($server_descs), 
+  count($server_hosts),
+  count($server_ports),
+  count($server_ssl_modes),
+  count($server_default_dbs),
+  count($server_pg_dump_paths),
+  count($server_pg_dumpall_paths)
+  );
 
 if ($server_num == 0) {
   // Display name for the server on the login screen
@@ -60,22 +68,22 @@ if ($server_num == 0) {
   $conf['servers'][0]['pg_dump_path'] = '{{PPA_SERVER_PG_DUMP_PATH}}';
   $conf['servers'][0]['pg_dumpall_path'] = '{{PPA_SERVER_PG_DUMPALL_PATH}}';
 } else {
-  if (len($server_hosts) == 0) {
+  if (count($server_hosts) == 0) {
     $server_hosts = ['{{PPA_SERVER_HOST}}'];
   }
-  if (len($server_ports) == 0) {
+  if (count($server_ports) == 0) {
     $server_hosts = ['{{PPA_SERVER_PORT}}'];
   }
-  if (len($server_ssl_modes) == 0) {
+  if (count($server_ssl_modes) == 0) {
     $server_ssl_modes = ['{{PPA_SERVER_SSL_MODE}}'];
   }
-  if (len($server_default_dbs) == 0) {
+  if (count($server_default_dbs) == 0) {
     $server_default_dbs = ['{{PPA_SERVER_DEFAULT_DB}}'];
   }
-  if (len($server_pg_dump_paths) == 0) {
+  if (count($server_pg_dump_paths) == 0) {
     $server_pg_dump_paths = ['{{PPA_SERVER_PG_DUMP_PATH}}'];
   }
-  if (len($server_pg_dumpall_paths) == 0) {
+  if (count($server_pg_dumpall_paths) == 0) {
     $server_pg_dumpall_paths = ['{{PPA_SERVER_PG_DUMPALL_PATH}}'];
   }
   
