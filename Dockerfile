@@ -1,4 +1,4 @@
-FROM dockage/alpine-runit:3.6
+FROM dockage/alpine:latest
 
 LABEL maintainer="Snimshchikov Ilya <snimshchikov.ilya@gmail.com>" \
     org.label-schema.name="phppgadmin" \
@@ -7,6 +7,20 @@ LABEL maintainer="Snimshchikov Ilya <snimshchikov.ilya@gmail.com>" \
     org.label-schema.vcs-url="https://github.com/snimshchikov/phppgadmin-docker" \
     org.label-schema.license="MIT"
 
+ENV SERVICE_AVAILABLE_DIR=/etc/sv \
+    SERVICE_ENABLED_DIR=/service
+ENV SVDIR=${SERVICE_ENABLED_DIR} \
+    SVWAIT=7
+ADD https://rawgit.com/dockage/runit-scripts/master/scripts/installer /opt/
+RUN apk update \
+    && apk --no-cache add runit \
+    && mkdir -p ${SERVICE_AVAILABLE_DIR} ${SERVICE_ENABLED_DIR} \
+    && chmod +x /opt/installer \
+    && sync \
+    && /opt/installer \
+    && rm -rf /var/cache/apk/* /opt/installer \
+    && /sbin/runit-init
+    
 ENV DOCKAGE_WEBROOT_DIR=/var/www \
     DOCKAGE_DATA_DIR=/data \
     DOCKAGE_ETC_DIR=/etc/dockage \
