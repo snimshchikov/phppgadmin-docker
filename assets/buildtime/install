@@ -6,9 +6,9 @@ apk add --no-cache ${BUILD_PACKAGES_DEPENDENCIES}
 
 curl -SLO https://github.com/phppgadmin2/phppgadmin/archive/master.zip
 unzip master.zip
-mv ./phpPgAdmin-master/* ${DOCKAGE_WEBROOT_DIR}
-mv ${DOCKAGE_WEBROOT_DIR}/conf/config.inc.php-dist ${DOCKAGE_WEBROOT_DIR}/conf/config.inc.php
-chown -R nginx:nginx ${DOCKAGE_WEBROOT_DIR}
+mv ./phpPgAdmin-master/* ${WEBROOT_DIR}
+mv ${WEBROOT_DIR}/conf/config.inc.php-dist ${WEBROOT_DIR}/conf/config.inc.php
+chown -R nginx:nginx ${WEBROOT_DIR}
 
 rm -rf master.zip phppgadmin-master
 apk del ${BUILD_PACKAGES_DEPENDENCIES}
