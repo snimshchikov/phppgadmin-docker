@@ -3,7 +3,7 @@
 
 ## This repository is a fork 
 Upgrades:
-* Latest [phppgadmin](https://github.com/phpPgAdmin2/phpPgAdmin) by [ReimuHakurei](https://github.com/ReimuHakurei) with support of postgres 15
+* Latest [phppgadmin](https://github.com/phpPgAdmin2/phpPgAdmin) by [ReimuHakurei](https://github.com/ReimuHakurei) with **support of postgres 15**
 * PHP 8.1
 
 ## Contributing
