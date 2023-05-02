@@ -1,15 +1,17 @@
-FROM snimshchikov/alpine-nginx-php-fpm:latest
+FROM richarvey/nginx-php-fpm:2.1.4
 
 LABEL maintainer="Snimshchikov Ilya <snimshchikov.ilya@gmail.com>" \
     org.label-schema.name="phppgadmin" \
-    org.label-schema.vendor="4u-org" \
     org.label-schema.description="phpPgAdmin Docker image, phpPgAdmin is a web-based administration tool for PostgreSQL." \
     org.label-schema.vcs-url="https://github.com/snimshchikov/phppgadmin-docker" \
     org.label-schema.license="MIT"
 
-ADD ./assets ${DOCKAGE_ETC_DIR}
+ENV WEBROOT_DIR=/var/www \
+    DATA_DIR=/data \
+    LOG_DIR=/var/log
+    ASSETS_DIR=/etc/assets
+ADD ./assets ${ASSETS_DIR}
 
-RUN apk --no-cache --update add php81-pgsql postgresql \
-    && ${DOCKAGE_ETC_DIR}/buildtime/install \
-    && cp -ar ${DOCKAGE_ETC_DIR}/etc/* /etc \
-    && rm -rf /var/cache/apk/* ${DOCKAGE_ETC_DIR}/etc ${DOCKAGE_ETC_DIR}/buildtime
+RUN apk --no-cache --update add php-pgsql postgresql \
+    && ${ASSETS_DIR}/buildtime/install \
+    && rm rf ${ASSETS_DIR}/buildtime
