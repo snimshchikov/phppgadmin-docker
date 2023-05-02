@@ -14,6 +14,7 @@ ADD ./assets ${ASSETS_DIR}
 
 RUN apk --no-cache --update add php-pgsql postgresql \
     && mv ${ASSETS_DIR}/php-fpm.conf /usr/local/etc/php-fpm.conf \
-    && ls ${ASSETS_DIR} && ls ${ASSETS_DIR}/nginx \
+    && mkdir /conf/nginx/,\
+    && mv ${ASSETS_DIR}/nginx/default.conf /conf/nginx/phppgadmin.conf \
     && ${ASSETS_DIR}/buildtime/install \
     && rm -rf ${ASSETS_DIR}/buildtime
