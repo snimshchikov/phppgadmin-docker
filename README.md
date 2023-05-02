@@ -2,7 +2,7 @@
 [phpPgAdmin](https://github.com/phppgadmin/phppgadmin) is a web-based administration tool for [PostgreSQL](https://www.postgresql.org). It is perfect for PostgreSQL DBAs, newbies, and hosting services.
 
 ## This repository is a fork 
-Upgrades:
+Improvements:
 * Latest [phppgadmin](https://github.com/phpPgAdmin2/phpPgAdmin) by [ReimuHakurei](https://github.com/ReimuHakurei) with **support of postgres 15**
 * PHP 8.1
 
