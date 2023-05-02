@@ -10,30 +10,127 @@
 // An example server.  Create as many of these as you wish,
 // indexed from zero upwards.
 
-// Display name for the server on the login screen
-$conf['servers'][0]['desc'] = '{{PHP_PG_ADMIN_SERVER_DESC}}';
+function custom_explode(string &$str): array {
+  if $str == "" {
+    return [];
+  }
+  return explode(';;', $str);
+}
 
-// Hostname or IP address for server.  Use '' for UNIX domain socket.
-// use 'localhost' for TCP/IP connection on this computer
-$conf['servers'][0]['host'] = '{{PHP_PG_ADMIN_SERVER_HOST}}';
+function get_or_last(string|int &$index, array &$arr) {
+  if array_key_exists($index, $arr) {
+    return $arr[$index];
+  }
+  return $arr[array_key_last($arr)];
+}
 
-// Database port on server (5432 is the PostgreSQL default)
-$conf['servers'][0]['port'] = {{PHP_PG_ADMIN_SERVER_PORT}};
+$server_descs = custom_explode('{{PPA_SERVER_DESCS}}');
+$server_hosts = custom_explode('{{PPA_SERVER_HOSTS}}');
+$server_ports = custom_explode('{{PPA_SERVER_PORTS}}');
+$server_ssl_modes = custom_explode('{{PPA_SERVER_SSL_MODES}}');
+$server_default_dbs = custom_explode('{{PPA_SERVER_DEFAULT_DBS}}');
+$server_pg_dump_paths = custom_explode('{{PPA_SERVER_PG_DUMP_PATHS}}');
+$server_pg_dumpall_paths = custom_explode('{{PPA_SERVER_PG_DUMPALL_PATHS}}');
 
-// Database SSL mode
-// Possible options: disable, allow, prefer, require
-// To require SSL on older servers use option: legacy
-// To ignore the SSL mode, use option: unspecified
-$conf['servers'][0]['sslmode'] = '{{PHP_PG_ADMIN_SERVER_SSL_MODE}}';
+$server_num = max(
+  len($server_descs), 
+  len($server_hosts),
+  len($server_ports),
+  len($server_ssl_modes),
+  len($server_default_dbs),
+  len($server_pg_dump_paths),
+  len($server_pg_dumpall_paths)
+  );
 
-// Change the default database only if you cannot connect to template1.
-// For a PostgreSQL 8.1+ server, you can set this to 'postgres'.
-$conf['servers'][0]['defaultdb'] = '{{PHP_PG_ADMIN_SERVER_DEFAULT_DB}}';
+if $server_num == 0 {
+  // Display name for the server on the login screen
+  $conf['servers'][0]['desc'] = '{{PPA_SERVER_DESC}}';
 
-// Specify the path to the database dump utilities for this server.
-// You can set these to '' if no dumper is available.
-$conf['servers'][0]['pg_dump_path'] = '{{PHP_PG_ADMIN_SERVER_PG_DUMP_PATH}}';
-$conf['servers'][0]['pg_dumpall_path'] = '{{PHP_PG_ADMIN_SERVER_PG_DUMPALL_PATH}}';
+  // Hostname or IP address for server.  Use '' for UNIX domain socket.
+  // use 'localhost' for TCP/IP connection on this computer
+  $conf['servers'][0]['host'] = '{{PPA_SERVER_HOST}}';
+
+  // Database port on server (5432 is the PostgreSQL default)
+  $conf['servers'][0]['port'] = {{PPA_SERVER_PORT}};
+
+  // Database SSL mode
+  // Possible options: disable, allow, prefer, require
+  // To require SSL on older servers use option: legacy
+  // To ignore the SSL mode, use option: unspecified
+  $conf['servers'][0]['sslmode'] = '{{PPA_SERVER_SSL_MODE}}';
+
+  // Change the default database only if you cannot connect to 'postgres'.
+  // For servers with versions before PostgreSQL 8.1, you can set this to 'postgres'.
+  $conf['servers'][0]['defaultdb'] = '{{PPA_SERVER_DEFAULT_DB}}';
+
+  // Specify the path to the database dump utilities for this server.
+  // You can set these to '' if no dumper is available.
+  $conf['servers'][0]['pg_dump_path'] = '{{PPA_SERVER_PG_DUMP_PATH}}';
+  $conf['servers'][0]['pg_dumpall_path'] = '{{PPA_SERVER_PG_DUMPALL_PATH}}';
+} else {
+  if len($server_hosts) == 0 {
+    $server_hosts = ['{{PPA_SERVER_HOST}}'];
+  }
+  if len($server_ports) == 0 {
+    $server_hosts = ['{{PPA_SERVER_PORT}}'];
+  }
+  if len($server_ssl_modes) == 0 {
+    $server_ssl_modes = ['{{PPA_SERVER_SSL_MODE}}'];
+  }
+  if len($server_default_dbs) == 0 {
+    $server_default_dbs = ['{{PPA_SERVER_DEFAULT_DB}}'];
+  }
+  if len($server_pg_dump_paths) == 0 {
+    $server_pg_dump_paths = ['{{PPA_SERVER_PG_DUMP_PATH}}'];
+  }
+  if len($server_pg_dumpall_paths) == 0 {
+    $server_pg_dumpall_paths = ['{{PPA_SERVER_PG_DUMPALL_PATH}}'];
+  }
+  
+  for $i = 0; $i < $server_num; $i++ {
+    $host = get_or_last($i, $server_hosts);
+    $port = get_or_last($i, $server_ports);
+    $group = 'servers';
+    if array_key_exists($i, $server_descs) {
+      $desc = $server_descs[$i];
+      if str_contains($desc, ':') {
+        $desc_split = explode(':', $desc, 1);
+        $group = $desc_split[0];
+        $desc = $desc_split[1];
+      }
+    } else {
+      $desc = "$host:$port";
+    }
+    $server = array();
+    // Display name for the server on the login screen
+    $server['desc'] = $desc;
+
+    // Hostname or IP address for server.  Use '' for UNIX domain socket.
+    // use 'localhost' for TCP/IP connection on this computer
+    $server['host'] = $host;
+
+    // Database port on server (5432 is the PostgreSQL default)
+    $server['port'] = (int)$port;
+
+    // Database SSL mode
+    // Possible options: disable, allow, prefer, require
+    // To require SSL on older servers use option: legacy
+    // To ignore the SSL mode, use option: unspecified
+    $server['sslmode'] = get_or_last($i, $server_ssl_modes);
+
+    // Change the default database only if you cannot connect to template1.
+    // For a PostgreSQL 8.1+ server, you can set this to 'postgres'.
+    $server['defaultdb'] = get_or_last($i, $server_default_dbs);
+
+    // Specify the path to the database dump utilities for this server.
+    // You can set these to '' if no dumper is available.
+    $server['pg_dump_path'] = get_or_last($i, $server_pg_dump_paths);
+    $server['pg_dumpall_path'] = get_or_last($i, $server_pg_dumpall_paths);
+    
+    $conf[$group][array_key_last($conf[$group]) + 1] = $server;
+  }
+}
+
 
 // Example for a second server (PostgreSQL for Windows)
 //$conf['servers'][1]['desc'] = 'Test Server';
@@ -87,7 +184,7 @@ $conf['servers'][0]['pg_dumpall_path'] = '{{PHP_PG_ADMIN_SERVER_PG_DUMPALL_PATH}
 // Default language. E.g.: 'english', 'polish', etc.  See lang/ directory
 // for all possibilities. If you specify 'auto' (the default) it will use
 // your browser preference.
-$conf['default_lang'] = '{{PHP_PG_ADMIN_DEFAULT_LANG}}';
+$conf['default_lang'] = '{{PPA_DEFAULT_LANG}}';
 
 // AutoComplete uses AJAX interaction to list foreign key values
 // on insert fields. It currently only works on single column
@@ -95,63 +192,63 @@ $conf['default_lang'] = '{{PHP_PG_ADMIN_DEFAULT_LANG}}';
 // 'default on' enables AutoComplete and turns it on by default.
 // 'default off' enables AutoComplete but turns it off by default.
 // 'disable' disables AutoComplete.
-$conf['autocomplete'] = '{{PHP_PG_ADMIN_AUTO_COMPLETE}}';
+$conf['autocomplete'] = '{{PPA_AUTO_COMPLETE}}';
 
 // If extra login security is true, then logins via phpPgAdmin with no
 // password or certain usernames (pgsql, postgres, root, administrator)
 // will be denied. Only set this false once you have read the FAQ and
 // understand how to change PostgreSQL's pg_hba.conf to enable
 // passworded local connections.
-$conf['extra_login_security'] = {{PHP_PG_ADMIN_EXTRA_LOGIN_SECURITY}};
+$conf['extra_login_security'] = {{PPA_EXTRA_LOGIN_SECURITY}};
 
 // Only show owned databases?
 // Note: This will simply hide other databases in the list - this does
 // not in any way prevent your users from seeing other database by
 // other means. (e.g. Run 'SELECT * FROM pg_database' in the SQL area.)
-$conf['owned_only'] = {{PHP_PG_ADMIN_OWNED_ONLY}};
+$conf['owned_only'] = {{PPA_OWNED_ONLY}};
 
 // Display comments on objects?  Comments are a good way of documenting
 // a database, but they do take up space in the interface.
-$conf['show_comments'] = {{PHP_PG_ADMIN_SHOW_COMMENTS}};
+$conf['show_comments'] = {{PPA_SHOW_COMMENTS}};
 
 // Display "advanced" objects? Setting this to true will show
 // aggregates, types, operators, operator classes, conversions,
 // languages and casts in phpPgAdmin. These objects are rarely
 // administered and can clutter the interface.
-$conf['show_advanced'] = {{PHP_PG_ADMIN_SHOW_ADVANCED}};
+$conf['show_advanced'] = {{PPA_SHOW_ADVANCED}};
 
 // Display "system" objects?
-$conf['show_system'] = {{PHP_PG_ADMIN_SHOW_SYSTEM}};
+$conf['show_system'] = {{PPA_SHOW_SYSTEM}};
 
 // Minimum length users can set their password to.
-$conf['min_password_length'] = {{PHP_PG_ADMIN_MIN_PASSWORD_LENGTH}};
+$conf['min_password_length'] = {{PPA_MIN_PASSWORD_LENGTH}};
 
 // Width of the left frame in pixels (object browser)
-$conf['left_width'] = {{PHP_PG_ADMIN_LEFT_WIDTH}};
+$conf['left_width'] = {{PPA_LEFT_WIDTH}};
 
 // Which look & feel theme to use
-$conf['theme'] = '{{PHP_PG_ADMIN_THEME}}';
+$conf['theme'] = '{{PPA_THEME}}';
 
 // Show OIDs when browsing tables?
-$conf['show_oids'] = {{PHP_PG_ADMIN_SHOW_OIDS}};
+$conf['show_oids'] = {{PPA_SHOW_OIDS}};
 
 // Max rows to show on a page when browsing record sets
-$conf['max_rows'] = {{PHP_PG_ADMIN_MAX_ROWS}};
+$conf['max_rows'] = {{PPA_MAX_ROWS}};
 
 // Max chars of each field to display by default in browse mode
-$conf['max_chars'] = {{PHP_PG_ADMIN_MAX_CHARS}};
+$conf['max_chars'] = {{PPA_MAX_CHARS}};
 
 // Send XHTML strict headers?
-$conf['use_xhtml_strict'] = {{PHP_PG_ADMIN_USE_XHTML_STRICT}};
+$conf['use_xhtml_strict'] = {{PPA_USE_XHTML_STRICT}};
 
 // Base URL for PostgreSQL documentation.
 // '%s', if present, will be replaced with the PostgreSQL version
 // (e.g. 8.4 )
-$conf['help_base'] = '{{PHP_PG_ADMIN_HELP_BASE}}';
+$conf['help_base'] = '{{PPA_HELP_BASE}}';
 
 // Configuration for ajax scripts
 // Time in seconds. If set to 0, refreshing data using ajax will be disabled (locks and activity pages)
-$conf['ajax_refresh'] = {{PHP_PG_ADMIN_AJAX_REFRESH}};
+$conf['ajax_refresh'] = {{PPA_AJAX_REFRESH}};
 
 /** Plugins management
  * Add plugin names to the following array to activate them
