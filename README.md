@@ -1,8 +1,7 @@
 # phpPgAdmin [![Docker Pulls](https://img.shields.io/docker/pulls/snimshchikov/phppgadmin.svg?style=flat)](https://hub.docker.com/r/snimshchikov/phppgadmin/) [![Docker Stars](https://img.shields.io/docker/stars/snimshchikov/phppgadmin.svg?style=flat)](https://hub.docker.com/r/snimshchikov/phppgadmin/) [![Docker Automated build](https://img.shields.io/docker/automated/snimshchikov/phppgadmin.svg?style=flat)](https://hub.docker.com/r/snimshchikov/phppgadmin/)
 [phpPgAdmin](https://github.com/phppgadmin/phppgadmin) is a web-based administration tool for [PostgreSQL](https://www.postgresql.org). It is perfect for PostgreSQL DBAs, newbies, and hosting services.
 
-## This repository is a fork
-Original by dockage: [🔗 Github](https://github.com/dockage/phppgadmin)  
+## This repository is a fork 
 Upgrades:
 * Latest [phppgadmin](https://github.com/phpPgAdmin2/phpPgAdmin) by [ReimuHakurei](https://github.com/ReimuHakurei) with support of postgres 15
 
