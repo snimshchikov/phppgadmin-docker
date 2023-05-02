@@ -2,7 +2,7 @@ FROM snimshchikov/alpine-nginx-php-fpm:latest
 
 LABEL maintainer="Snimshchikov Ilya <snimshchikov.ilya@gmail.com>" \
     org.label-schema.name="phppgadmin" \
-    org.label-schema.vendor="Dockage" \
+    org.label-schema.vendor="4u-org" \
     org.label-schema.description="phpPgAdmin Docker image, phpPgAdmin is a web-based administration tool for PostgreSQL." \
     org.label-schema.vcs-url="https://github.com/snimshchikov/phppgadmin-docker" \
     org.label-schema.license="MIT"
