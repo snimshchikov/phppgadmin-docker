@@ -34,7 +34,7 @@ PPA_HELP_BASE=${PPA_HELP_BASE:-'http://www.postgresql.org/docs/%s/interactive/'}
 PPA_AJAX_REFRESH=${PPA_AJAX_REFRESH:-3}
 
 
-cat ${CONTENT_DIR}/runtime/configs/phppgadmin/config.inc.php | \
+cat ${ASSETS_DIR}/runtime/configs/phppgadmin/config.inc.php | \
     sed -e "s#{{PPA_SERVER_DESC}}#$PPA_SERVER_DESC#g" \
         -e "s#{{PPA_SERVER_HOST}}#$PPA_SERVER_HOST#g" \
         -e "s#{{PPA_SERVER_PORT}}#$PPA_SERVER_PORT#g" \
