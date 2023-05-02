@@ -1,4 +1,4 @@
-FROM richarvey/nginx-php-fpm:2.1.4
+FROM richarvey/nginx-php-fpm:2.1.2
 
 LABEL maintainer="Snimshchikov Ilya <snimshchikov.ilya@gmail.com>" \
     org.label-schema.name="phppgadmin" \
