@@ -10,14 +10,14 @@
 // An example server.  Create as many of these as you wish,
 // indexed from zero upwards.
 
-function custom_explode(string &$str): array {
+function custom_explode(string $str): array {
   if ($str == "") {
     return [];
   }
   return explode(';;', $str);
 }
 
-function get_or_last(string|int &$index, array &$arr) {
+function get_or_last(string|int $index, array &$arr) {
   if (array_key_exists($index, $arr)) {
     return $arr[$index];
   }
