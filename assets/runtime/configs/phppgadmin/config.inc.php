@@ -32,15 +32,7 @@ $server_default_dbs = custom_explode('{{PPA_SERVER_DEFAULT_DBS}}');
 $server_pg_dump_paths = custom_explode('{{PPA_SERVER_PG_DUMP_PATHS}}');
 $server_pg_dumpall_paths = custom_explode('{{PPA_SERVER_PG_DUMPALL_PATHS}}');
 
-$server_num = max(
-  len($server_descs), 
-  len($server_hosts),
-  len($server_ports),
-  len($server_ssl_modes),
-  len($server_default_dbs),
-  len($server_pg_dump_paths),
-  len($server_pg_dumpall_paths)
-  );
+$server_num = max(len($server_descs), len($server_hosts), len($server_ports), len($server_ssl_modes), len($server_default_dbs), len($server_pg_dump_paths), len($server_pg_dumpall_paths));
 
 if ($server_num == 0) {
   // Display name for the server on the login screen
