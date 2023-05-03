@@ -11,7 +11,7 @@
 // indexed from zero upwards.
 
 function custom_explode(string $str): array {
-  if ($str == "") {
+  if ($str === null || $str === '') {
     return [];
   }
   return explode(';;', $str);
