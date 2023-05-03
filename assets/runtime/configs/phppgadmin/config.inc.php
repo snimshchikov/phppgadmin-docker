@@ -69,7 +69,7 @@ if ($server_num == 0) {
   $conf['servers'][0]['sslmode'] = getenv_trim('PPA_SERVER_SSL_MODE');
 
   // Change the default database only if you cannot connect to 'postgres'.
-  // For servers with versions before PostgreSQL 8.1, you can set this to 'postgres'.
+  // For servers with versions before PostgreSQL 8.1, you can set this to 'template1'.
   $conf['servers'][0]['defaultdb'] = getenv_trim('PPA_SERVER_DEFAULT_DB');
 
   // Specify the path to the database dump utilities for this server.
@@ -132,8 +132,8 @@ if ($server_num == 0) {
     // To ignore the SSL mode, use option: unspecified
     $server['sslmode'] = get_or_last($i, $server_ssl_modes);
 
-    // Change the default database only if you cannot connect to template1.
-    // For a PostgreSQL 8.1+ server, you can set this to 'postgres'.
+    // Change the default database only if you cannot connect to 'postgres'.
+    // For servers with versions before PostgreSQL 8.1, you can set this to 'template1'.
     $server['defaultdb'] = get_or_last($i, $server_default_dbs);
 
     // Specify the path to the database dump utilities for this server.
@@ -251,7 +251,7 @@ $conf['show_system'] = to_bool(getenv_trim('PPA_SHOW_SYSTEM'));
 
 // Display reports feature? For this feature to work, you must
 // install the reports database as explained in the INSTALL file.
-/$conf["show_reports"] = to_bool(getenv_trim('PPA_SHOW_REPORTS'));
+$conf["show_reports"] = to_bool(getenv_trim('PPA_SHOW_REPORTS'));
 
 // Database and table for reports
 $conf["reports_db"] = getenv_trim('PPA_REPORTS_DB'));
