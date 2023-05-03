@@ -92,16 +92,17 @@ if ($server_num == 0) {
     $server_pg_dumpall_paths = [getenv_trim('PPA_SERVER_PG_DUMPALL_PATH')];
   }
   
+  $groups = array()
   for ($i = 0; $i < $server_num; $i++) {
     $host = get_or_last($i, $server_hosts);
     $port = get_or_last($i, $server_ports);
-    $group = 'servers';
     if (array_key_exists($i, $server_descs)) {
       $desc = $server_descs[$i];
       if (str_contains($desc, ':')) {
         $desc_split = explode(':', $desc, 1);
         $group = $desc_split[0];
         $desc = $desc_split[1];
+        $groups[$group] = array_push($groups[$group]??[], $i);
       }
     } else {
       $desc = "$host:$port";
@@ -132,14 +133,17 @@ if ($server_num == 0) {
     $server['pg_dump_path'] = get_or_last($i, $server_pg_dump_paths);
     $server['pg_dumpall_path'] = get_or_last($i, $server_pg_dumpall_paths);
     
-    if (!array_key_exists($group, $conf)) {
-      $conf[$group][0] = $server;
-    } else {
-      $conf[$group][array_key_last($conf[$group]) + 1] = $server;
+    $conf['servers'][$i] = $server;
     }
   }
 }
 
+$i = 0;
+foreach($groups as $group => $servers) {
+  $conf['srv_groups'][$i]['desc'] = $group;
+  $conf['srv_groups'][$i]['servers'] = implode(',', $servers);
+  $i++;
+}
 
 // Example for a second server (PostgreSQL for Windows)
 //$conf['servers'][1]['desc'] = 'Test Server';
