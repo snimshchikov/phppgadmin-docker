@@ -103,7 +103,7 @@ if ($server_num == 0) {
     if (array_key_exists($i, $server_descs)) {
       $desc = $server_descs[$i];
       if (str_contains($desc, ':')) {
-        $desc_split = explode(':', $desc, 1);
+        $desc_split = explode(':', $desc, 2);
         $group = $desc_split[0];
         $desc = $desc_split[1];
         if (array_key_exists($group, $groups)) {
