@@ -92,7 +92,7 @@ if ($server_num == 0) {
     $server_pg_dumpall_paths = [getenv_trim('PPA_SERVER_PG_DUMPALL_PATH')];
   }
   
-  $groups = array()
+  $groups = array();
   for ($i = 0; $i < $server_num; $i++) {
     $host = get_or_last($i, $server_hosts);
     $port = get_or_last($i, $server_ports);
