@@ -221,6 +221,15 @@ $conf['autocomplete'] = getenv_trim('PPA_AUTO_COMPLETE');
 // passworded local connections.
 $conf['extra_login_security'] = to_bool(getenv_trim('PPA_EXTRA_LOGIN_SECURITY'));
 
+// If extra session security is true, then PHP's session cookies will have
+// SameSite cookie flags set to prevent CSRF attacks. If you're using
+// auto-start sessions, autostarted sessions will be destroyed and
+// restarted with SameSite on. If this this solution is not acceptable for
+// your situation, you will need to either turn off auot-start sessions, or
+// turn off secure sessions. Versions of PHP below 7.3 do not have access
+// to this feature and will be vulnerable to CSRF attacks.
+$conf['extra_session_security'] = to_bool(getenv_trim('PPA_EXTRA_SESSION_SECURITY'));
+
 // Only show owned databases?
 // Note: This will simply hide other databases in the list - this does
 // not in any way prevent your users from seeing other database by
@@ -239,6 +248,20 @@ $conf['show_advanced'] = to_bool(getenv_trim('PPA_SHOW_ADVANCED'));
 
 // Display "system" objects?
 $conf['show_system'] = to_bool(getenv_trim('PPA_SHOW_SYSTEM'));
+
+// Display reports feature? For this feature to work, you must
+// install the reports database as explained in the INSTALL file.
+/$conf["show_reports"] = to_bool(getenv_trim('PPA_SHOW_REPORTS'));
+
+// Database and table for reports
+$conf["reports_db"] = getenv_trim('PPA_REPORTS_DB'));
+$conf["reports_schema"] = getenv_trim('PPA_REPORTS_SCHEMA'));
+$conf["reports_table"] = getenv_trim('PPA_REPORTS_TABLE'));
+
+// Only show owned reports?
+// Note: This does not prevent people from accessing other reports by
+// other means.
+$conf["owned_reports_only"] = to_bool(getenv_trim('PPA_OWNED_REPORTS_ONLY'));
 
 // Minimum length users can set their password to.
 $conf['min_password_length'] = (int)getenv_trim('PPA_MIN_PASSWORD_LENGTH');
