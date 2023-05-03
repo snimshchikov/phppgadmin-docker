@@ -254,9 +254,9 @@ $conf['show_system'] = to_bool(getenv_trim('PPA_SHOW_SYSTEM'));
 $conf["show_reports"] = to_bool(getenv_trim('PPA_SHOW_REPORTS'));
 
 // Database and table for reports
-$conf["reports_db"] = getenv_trim('PPA_REPORTS_DB'));
-$conf["reports_schema"] = getenv_trim('PPA_REPORTS_SCHEMA'));
-$conf["reports_table"] = getenv_trim('PPA_REPORTS_TABLE'));
+$conf["reports_db"] = getenv_trim('PPA_REPORTS_DB');
+$conf["reports_schema"] = getenv_trim('PPA_REPORTS_SCHEMA');
+$conf["reports_table"] = getenv_trim('PPA_REPORTS_TABLE');
 
 // Only show owned reports?
 // Note: This does not prevent people from accessing other reports by
