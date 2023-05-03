@@ -134,7 +134,6 @@ if ($server_num == 0) {
     $server['pg_dumpall_path'] = get_or_last($i, $server_pg_dumpall_paths);
     
     $conf['servers'][$i] = $server;
-    }
   }
 }
 
