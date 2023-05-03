@@ -10,9 +10,9 @@
 // An example server.  Create as many of these as you wish,
 // indexed from zero upwards.
 
-function getenv_trim(string $variable) {
-  $env = getenv($variable)??''
-  return trim($env, "' ")
+function getenv_trim(string $variable): string {
+  $env = getenv($variable)??'';
+  return trim($env, "' ");
 }
 
 function custom_explode(string $str): array {
@@ -132,7 +132,7 @@ if ($server_num == 0) {
     $server['pg_dump_path'] = get_or_last($i, $server_pg_dump_paths);
     $server['pg_dumpall_path'] = get_or_last($i, $server_pg_dumpall_paths);
     
-    if (!array_key_exists($group, $conf)){
+    if (!array_key_exists($group, $conf)) {
       $conf[$group][0] = $server;
     } else {
       $conf[$group][array_key_last($conf[$group]) + 1] = $server;
