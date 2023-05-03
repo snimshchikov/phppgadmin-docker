@@ -66,3 +66,5 @@ cat ${ASSETS_DIR}/runtime/configs/phppgadmin/config.inc.php | \
         -e "s#{{PPA_HELP_BASE}}#$PPA_HELP_BASE#g" \
         -e "s#{{PPA_AJAX_REFRESH}}#$PPA_AJAX_REFRESH#g" \
         > ${WEBROOT_DIR}/conf/config.inc.php
+
+exec /start.sh
