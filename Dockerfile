@@ -48,7 +48,7 @@ ADD ./assets ${ASSETS_DIR}
 
 RUN apk --no-cache --update add php-pgsql postgresql \
     && ${ASSETS_DIR}/buildtime/install \
-    && rm -rf ${ASSETS_DIR}/buildtime
+    && rm -rf ${ASSETS_DIR}/buildtime \
     && mv ${ASSETS_DIR}/runtime/configs/phppgadmin/config.inc.php ${WEBROOT_DIR}/conf/config.inc.php
     
 CMD ["/start.sh"]
