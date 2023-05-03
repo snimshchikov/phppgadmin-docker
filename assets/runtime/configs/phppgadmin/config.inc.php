@@ -106,7 +106,11 @@ if ($server_num == 0) {
         $desc_split = explode(':', $desc, 1);
         $group = $desc_split[0];
         $desc = $desc_split[1];
-        $groups[$group] = array_push($groups[$group]??[], $i);
+        if (array_key_exists($group, $groups)) {
+          $groups[$group] = [$i];
+        } else {
+          $groups[$group][] = $i;
+        }
       }
     } else {
       $desc = "$host:$port";
