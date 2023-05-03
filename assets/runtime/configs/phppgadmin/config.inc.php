@@ -81,7 +81,7 @@ if ($server_num == 0) {
     $server_hosts = [getenv_trim('PPA_SERVER_HOST')];
   }
   if (count($server_ports) == 0) {
-    $server_hosts = [getenv_trim('PPA_SERVER_PORT')];
+    $server_ports = [getenv_trim('PPA_SERVER_PORT')];
   }
   if (count($server_ssl_modes) == 0) {
     $server_ssl_modes = [getenv_trim('PPA_SERVER_SSL_MODE')];
