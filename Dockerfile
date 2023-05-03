@@ -16,4 +16,4 @@ RUN apk --no-cache --update add php-pgsql postgresql \
     && ${ASSETS_DIR}/buildtime/install \
     && rm -rf ${ASSETS_DIR}/buildtime
     
-CMD ["/etc/assets/etc/runit/1.d/phppgadmin && /start.sh"]
+CMD ["/etc/assets/etc/runit/1.d/phppgadmin"]
