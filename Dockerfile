@@ -28,7 +28,7 @@ ENV WEBROOT_DIR=/var/www/html/ \
     PPA_SERVER_PG_DUMPALL_PATHS= \
 
     PPA_DEFAULT_LANG=auto \
-    PPA_AUTO_COMPLETE=default on \
+    PPA_AUTO_COMPLETE='default on' \
     PPA_EXTRA_LOGIN_SECURITY=true \
     PPA_OWNED_ONLY=false \
     PPA_SHOW_COMMENTS=true \
@@ -41,7 +41,7 @@ ENV WEBROOT_DIR=/var/www/html/ \
     PPA_MAX_ROWS=50 \
     PPA_MAX_CHARS=50 \
     PPA_USE_XHTML_STRICT=false \
-    PPA_HELP_BASE=http://www.postgresql.org/docs/%s/interactive/ \
+    PPA_HELP_BASE='http://www.postgresql.org/docs/%s/interactive/' \
     PPA_AJAX_REFRESH=3 
 
 ADD ./assets ${ASSETS_DIR}
