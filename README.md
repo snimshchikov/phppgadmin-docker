@@ -5,6 +5,8 @@
 Improvements:
 * Latest [phppgadmin](https://github.com/phpPgAdmin2/phpPgAdmin) by [ReimuHakurei](https://github.com/ReimuHakurei) with **support of postgres 15**
 * PHP 8.1
+* Add multiple postgres servers
+* Better security
 
 ## Contributing
 
@@ -74,21 +76,27 @@ Below is the complete list of available options that can be used to customize yo
 | `PHP_PG_ADMIN_SERVER_HOST` | Hostname or IP address for server.  Use '' for UNIX domain socket. Defaults to ``. |
 | `PHP_PG_ADMIN_SERVER_PORT` | Database port on server. Defaults to `5432`. |
 | `PHP_PG_ADMIN_SERVER_SSL_MODE` | Database SSL mode. Possible options: `disable`, `allow`, `prefer`, `require`. To require SSL on older servers use option: `legacy`. To ignore the SSL mode, use option: `unspecified`. Defaults to `allow` |
-| `PHP_PG_ADMIN_SERVER_DEFAULT_DB` | Change the default database only if you cannot connect to template1. Defaults to `template1`. |
+| `PHP_PG_ADMIN_SERVER_DEFAULT_DB` | Change the default database only if you cannot connect to 'postgres'. For servers with versions before PostgreSQL 8.1, you can set this to 'template1'. Defaults to `postgres`. |
 | `PHP_PG_ADMIN_SERVER_PG_DUMP_PATH` | Specify the path to the database dump utilities for this server. Defaults to `/usr/bin/pg_dump`. |
 | `PHP_PG_ADMIN_SERVER_PG_DUMPALL_PATH` | Specify the path to the database dump utilities for this server. Defaults to `/usr/bin/pg_dumpall`. |
 | `PHP_PG_ADMIN_DEFAULT_LANG` | Default language. E.g.: `english`, `polish`, etc.  See [lang](https://github.com/phppgadmin/phppgadmin/tree/master/lang) directory for all possibilities. If you specify `auto` it will use your browser preference. Defaults to `auto`. |
 | `PHP_PG_ADMIN_AUTO_COMPLETE` | AutoComplete uses AJAX interaction to list foreign key values on insert fields. It currently only works on single column foreign keys. You can choose one of the following values: `default on` enables AutoComplete and turns it on by default. `default off` enables AutoComplete but turns it off by default. `disable` disables AutoComplete. Defaults to `default on`. |
 | `PHP_PG_ADMIN_EXTRA_LOGIN_SECURITY` | If extra login security is `true`, then logins via phpPgAdmin with no password or certain usernames (pgsql, postgres, root, administrator) will be denied. Only set this false once you have read the FAQ and understand how to change PostgreSQL's pg_hba.conf to enable passworded local connections. Defaults to `true`. |
+| `PPA_EXTRA_SESSION_SECURITY` | If extra session security is true, then PHP's session cookies will have SameSite cookie flags set to prevent CSRF attacks. Defaults to `true`.
 | `PHP_PG_ADMIN_OWNED_ONLY` | Only show owned databases? Note: This will simply hide other databases in the list - this does not in any way prevent your users from seeing other database by other means. (e.g. Run ```SELECT * FROM pg_database``` in the SQL area.). Defaults to `false`. |
 | `PHP_PG_ADMIN_SHOW_COMMENTS` | Display comments on objects? Comments are a good way of documenting a database, but they do take up space in the interface. Defaults to `true`. |
 | `PHP_PG_ADMIN_SHOW_ADVANCED` | Display "advanced" objects? Setting this to true will show aggregates, types, operators, operator classes, conversions, languages and casts in phpPgAdmin. These objects are rarely administered and can clutter the interface. Defaults to `false`. |
 | `PHP_PG_ADMIN_SHOW_SYSTEM` | Display "system" objects? Defaults to `false`. |
-| `PHP_PG_ADMIN_MIN_PASSWORD_LENGTH` | Minimum length users can set their password to. Defaults to `1`. |
+| `PHP_PG_ADMIN_MIN_PASSWORD_LENGTH` | Minimum length users can set their password to. Defaults to `10`. |
+| `PPA_SHOW_REPORTS` | Display reports feature? Defaults to `true`. |
+| `PPA_REPORTS_DB` | Database for reports. Defaults to `phppgadmin`. |
+| `PPA_REPORTS_SCHEMA` | Reports schema. Defaults to `public`. |
+| `PPA_REPORTS_TABLE` | Table for reports. Defaults to `ppa_reports`. |
+| `PPA_OWNED_REPORTS_ONLY` | Only show owned reports? Note: This does not prevent people from accessing other reports by other means. Defaults to `false`. |
 | `PHP_PG_ADMIN_LEFT_WIDTH` | Width of the left frame in pixels (object browser). Defaults to `200`. |
 | `PHP_PG_ADMIN_THEME` | Which look & feel theme to use. Defaults to `default`. |
 | `PHP_PG_ADMIN_SHOW_OIDS` | Show OIDs when browsing tables? Defaults to `false`. |
-| `PHP_PG_ADMIN_MAX_ROWS` | Max rows to show on a page when browsing record sets. Defaults to `30`. |
+| `PHP_PG_ADMIN_MAX_ROWS` | Max rows to show on a page when browsing record sets. Defaults to `50`. |
 | `PHP_PG_ADMIN_MAX_CHARS` | Max chars of each field to display by default in browse mode. Defaults to `50`. |
 | `PHP_PG_ADMIN_USE_XHTML_STRICT` | Send XHTML strict headers? Defaults to `false`. |
 | `PHP_PG_ADMIN_HELP_BASE` | Base URL for PostgreSQL documentation. '%s', if present, will be replaced with the PostgreSQL version (e.g. 8.4). Defaults to `http://www.postgresql.org/docs/%s/interactive/`. |
