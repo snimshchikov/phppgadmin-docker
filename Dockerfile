@@ -30,10 +30,17 @@ ENV WEBROOT_DIR=/var/www/html/ \
     PPA_DEFAULT_LANG=auto \
     PPA_AUTO_COMPLETE='default on' \
     PPA_EXTRA_LOGIN_SECURITY=true \
+    PPA_EXTRA_SESSION_SECURITY=true \
     PPA_OWNED_ONLY=false \
     PPA_SHOW_COMMENTS=true \
     PPA_SHOW_ADVANCED=false \
     PPA_MIN_PASSWORD_LENGTH=10 \
+    
+    PPA_SHOW_REPORTS=true \
+    PPA_REPORTS_DB=phppgadmin \
+    PPA_REPORTS_SCHEMA=public \
+    PPA_REPORTS_TABLE=ppa_reports \
+    PPA_OWNED_REPORTS_ONLY=false \
     
     PPA_LEFT_WIDTH=200 \
     PPA_THEME=default \
