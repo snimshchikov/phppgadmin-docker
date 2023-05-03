@@ -15,6 +15,10 @@ function getenv_trim(string $variable): string {
   return trim($env, "' ");
 }
 
+function to_bool(string $str): bool {
+  return filter_var($str, FILTER_VALIDATE_BOOLEAN);
+}
+
 function custom_explode(string $str): array {
   if ($str === null || $str === '') {
     return [];
@@ -56,7 +60,7 @@ if ($server_num == 0) {
   $conf['servers'][0]['host'] = getenv_trim('PPA_SERVER_HOST');
 
   // Database port on server (5432 is the PostgreSQL default)
-  $conf['servers'][0]['port'] = getenv_trim('PPA_SERVER_PORT');
+  $conf['servers'][0]['port'] = (int)getenv_trim('PPA_SERVER_PORT');
 
   // Database SSL mode
   // Possible options: disable, allow, prefer, require
@@ -211,47 +215,47 @@ $conf['autocomplete'] = getenv_trim('PPA_AUTO_COMPLETE');
 // will be denied. Only set this false once you have read the FAQ and
 // understand how to change PostgreSQL's pg_hba.conf to enable
 // passworded local connections.
-$conf['extra_login_security'] = getenv_trim('PPA_EXTRA_LOGIN_SECURITY');
+$conf['extra_login_security'] = to_bool(getenv_trim('PPA_EXTRA_LOGIN_SECURITY'));
 
 // Only show owned databases?
 // Note: This will simply hide other databases in the list - this does
 // not in any way prevent your users from seeing other database by
 // other means. (e.g. Run 'SELECT * FROM pg_database' in the SQL area.)
-$conf['owned_only'] = getenv_trim('PPA_OWNED_ONLY');
+$conf['owned_only'] = to_bool(getenv_trim('PPA_OWNED_ONLY'));
 
 // Display comments on objects?  Comments are a good way of documenting
 // a database, but they do take up space in the interface.
-$conf['show_comments'] = getenv_trim('PPA_SHOW_COMMENTS');
+$conf['show_comments'] = to_bool(getenv_trim('PPA_SHOW_COMMENTS'));
 
 // Display "advanced" objects? Setting this to true will show
 // aggregates, types, operators, operator classes, conversions,
 // languages and casts in phpPgAdmin. These objects are rarely
 // administered and can clutter the interface.
-$conf['show_advanced'] = getenv_trim('PPA_SHOW_ADVANCED');
+$conf['show_advanced'] = to_bool(getenv_trim('PPA_SHOW_ADVANCED'));
 
 // Display "system" objects?
-$conf['show_system'] = getenv_trim('PPA_SHOW_SYSTEM');
+$conf['show_system'] = to_bool(getenv_trim('PPA_SHOW_SYSTEM'));
 
 // Minimum length users can set their password to.
-$conf['min_password_length'] = getenv_trim('PPA_MIN_PASSWORD_LENGTH');
+$conf['min_password_length'] = (int)getenv_trim('PPA_MIN_PASSWORD_LENGTH');
 
 // Width of the left frame in pixels (object browser)
-$conf['left_width'] = getenv_trim('PPA_LEFT_WIDTH');
+$conf['left_width'] = (int)getenv_trim('PPA_LEFT_WIDTH');
 
 // Which look & feel theme to use
 $conf['theme'] = getenv_trim('PPA_THEME');
 
 // Show OIDs when browsing tables?
-$conf['show_oids'] = getenv_trim('PPA_SHOW_OIDS');
+$conf['show_oids'] = to_bool(getenv_trim('PPA_SHOW_OIDS'));
 
 // Max rows to show on a page when browsing record sets
-$conf['max_rows'] = getenv_trim('PPA_MAX_ROWS');
+$conf['max_rows'] = (int)getenv_trim('PPA_MAX_ROWS');
 
 // Max chars of each field to display by default in browse mode
-$conf['max_chars'] = getenv_trim('PPA_MAX_CHARS');
+$conf['max_chars'] = (int)getenv_trim('PPA_MAX_CHARS');
 
 // Send XHTML strict headers?
-$conf['use_xhtml_strict'] = getenv_trim('PPA_USE_XHTML_STRICT');
+$conf['use_xhtml_strict'] = to_bool(getenv_trim('PPA_USE_XHTML_STRICT'));
 
 // Base URL for PostgreSQL documentation.
 // '%s', if present, will be replaced with the PostgreSQL version
@@ -260,7 +264,7 @@ $conf['help_base'] = getenv_trim('PPA_HELP_BASE');
 
 // Configuration for ajax scripts
 // Time in seconds. If set to 0, refreshing data using ajax will be disabled (locks and activity pages)
-$conf['ajax_refresh'] = getenv_trim('PPA_AJAX_REFRESH');
+$conf['ajax_refresh'] = (int)getenv_trim('PPA_AJAX_REFRESH');
 
 /** Plugins management
  * Add plugin names to the following array to activate them
